@@ -1,0 +1,17 @@
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\obj\Debug\net6.0\Application.csproj.AssemblyReference.cache
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\obj\Debug\net6.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\obj\Debug\net6.0\Application.AssemblyInfoInputs.cache
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\obj\Debug\net6.0\Application.AssemblyInfo.cs
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\obj\Debug\net6.0\Application.csproj.CoreCompileInputs.cache
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\bin\Debug\net6.0\Application.deps.json
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\bin\Debug\net6.0\Application.dll
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\bin\Debug\net6.0\Application.pdb
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\bin\Debug\net6.0\DAL.dll
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\bin\Debug\net6.0\Infrastructure.dll
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\bin\Debug\net6.0\Infrastructure.pdb
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\bin\Debug\net6.0\DAL.pdb
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\obj\Debug\net6.0\Application.csproj.CopyComplete
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\obj\Debug\net6.0\Application.dll
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\obj\Debug\net6.0\refint\Application.dll
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\obj\Debug\net6.0\Application.pdb
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Application\obj\Debug\net6.0\ref\Application.dll
