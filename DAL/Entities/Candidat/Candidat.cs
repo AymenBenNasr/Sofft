@@ -10,6 +10,7 @@ namespace DAL.Entities.Candidat
     {
         public IEnumerable<Technologie>? technologies { get; set; }
         public byte resume { get; set;}
+        public int test { get; set; }
 
           
     }
