@@ -15,7 +15,7 @@ using BCrypt.Net;
 
 namespace Application.Repositories
 {
-    public class UserRepository : GenericRepository<User>, IUserRepository
+    public class UserRepository : GenericRepository<User>, Interfaces.CandidatRepository
     {
         private AppDbContext _context;
         private IJwtUtils _jwtUtils;
@@ -42,6 +42,6 @@ namespace Application.Repositories
         public IEnumerable<User> GetOldUsers(int count)
         {
             return _context.Users.OrderByDescending(u => u.Firstname).ToList();
-                }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   }
     }
 }

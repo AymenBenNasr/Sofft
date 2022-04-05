@@ -1,4 +1,5 @@
 ﻿using DAL.Entities;
+using DAL.Entities.Candidat;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,17 +15,17 @@ namespace Infrastructure.Data
     public class AppDbContext : DbContext
 
     {
-        
-        public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
+        public AppDbContext()
         {
-
+        }
+        public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
+        { 
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                IConfigurationRoot configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json")
-                   .Build();
+                IConfigurationRoot configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
                 var connectionString = configuration.GetConnectionString("DefaultConnection");
                 optionsBuilder.UseSqlServer(connectionString);
                 Console.WriteLine(connectionString);
@@ -32,6 +33,8 @@ namespace Infrastructure.Data
         }
 
 
+
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Candidat> Candidats { get; set; }
     }
 }

@@ -8,10 +8,11 @@ using DAL.Dtos.Auth;
 
 namespace Application.Interfaces
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface CandidatRepository : IGenericRepository<User>
     {
         IEnumerable<User> GetOldUsers(int count);
         AuthResponse Authenticate(LoginDto login); 
+
         
     }
 }

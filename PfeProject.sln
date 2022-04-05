@@ -9,9 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{508E82C7-0778-43C5-AED8-B204256F463A}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "UI", "UI\UI.esproj", "{9FE7CE6D-AE4B-4542-8107-7B0FE19926E6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{49EB5029-D98A-4A1C-82A1-477260774E33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{49EB5029-D98A-4A1C-82A1-477260774E33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,12 +29,6 @@ Global
 		{508E82C7-0778-43C5-AED8-B204256F463A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{508E82C7-0778-43C5-AED8-B204256F463A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{508E82C7-0778-43C5-AED8-B204256F463A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9FE7CE6D-AE4B-4542-8107-7B0FE19926E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9FE7CE6D-AE4B-4542-8107-7B0FE19926E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9FE7CE6D-AE4B-4542-8107-7B0FE19926E6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{9FE7CE6D-AE4B-4542-8107-7B0FE19926E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9FE7CE6D-AE4B-4542-8107-7B0FE19926E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9FE7CE6D-AE4B-4542-8107-7B0FE19926E6}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{49EB5029-D98A-4A1C-82A1-477260774E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49EB5029-D98A-4A1C-82A1-477260774E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49EB5029-D98A-4A1C-82A1-477260774E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
