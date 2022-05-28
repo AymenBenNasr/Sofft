@@ -75,3 +75,7 @@ C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\A
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\obj\Debug\net6.0\Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\BCrypt.Net-Next.dll
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Properties\launchSettings.json
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll

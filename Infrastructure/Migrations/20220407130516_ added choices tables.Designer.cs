@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220405132525_test candidat table ")]
-    partial class testcandidattable
+    [Migration("20220407130516_ added choices tables")]
+    partial class addedchoicestables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,6 +82,135 @@ namespace Infrastructure.Migrations
                     b.HasIndex("ExperienceId");
 
                     b.ToTable("Technologie");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Questions.Domain", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Updated_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Domain");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Questions.Question", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Updated_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("difficulty")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("domainId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("domain_id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("duration")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("employer_id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<float?>("score")
+                        .HasColumnType("real");
+
+                    b.Property<int>("status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("tag")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("typeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("domainId");
+
+                    b.HasIndex("typeId");
+
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Questions.QuestType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Updated_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuestType");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Reponse.Choice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Updated_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("choice")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isTrue")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("questionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("questionId");
+
+                    b.ToTable("Choice");
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
@@ -182,9 +311,44 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("ExperienceId");
                 });
 
+            modelBuilder.Entity("DAL.Entities.Questions.Question", b =>
+                {
+                    b.HasOne("DAL.Entities.Questions.Domain", "domain")
+                        .WithMany("questions")
+                        .HasForeignKey("domainId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entities.Questions.QuestType", "type")
+                        .WithMany()
+                        .HasForeignKey("typeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("domain");
+
+                    b.Navigation("type");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Reponse.Choice", b =>
+                {
+                    b.HasOne("DAL.Entities.Questions.Question", "question")
+                        .WithMany()
+                        .HasForeignKey("questionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("question");
+                });
+
             modelBuilder.Entity("DAL.Entities.Candidat.Experience", b =>
                 {
                     b.Navigation("technologies");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Questions.Domain", b =>
+                {
+                    b.Navigation("questions");
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
