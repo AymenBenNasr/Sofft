@@ -9,6 +9,5 @@ namespace Application.Interfaces.Questions
 {
     public interface IQuestionRepository : IGenericRepository<Question>
     {
-
     }
 }

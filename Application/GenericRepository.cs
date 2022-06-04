@@ -26,7 +26,6 @@ namespace Application
         {
             _context.Set<T>().Remove(entity);
         }
-
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
         {
             throw new NotImplementedException();
@@ -44,7 +43,8 @@ namespace Application
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
+            _context.SaveChanges();
         }
     }
 }

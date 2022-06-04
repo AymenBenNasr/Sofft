@@ -18,5 +18,6 @@ namespace DAL.Dtos
         public Guid domain_id { get; set; }
         public Domain? domain { get; set; }
 
+
     }
 }

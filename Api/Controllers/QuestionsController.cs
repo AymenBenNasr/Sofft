@@ -62,6 +62,31 @@ namespace Api.Controllers
             _context.SaveChanges();
         }
 
+        [HttpPost("{id:Guid}")]
+
+        public IActionResult UpdateQuestion(Guid? id , [FromBody] Question question)
+        {
+            var result = _questRepo.GetAll().FirstOrDefault(x => x.Id == id);
+            if (result == null)
+                return NotFound(new { message = "Question not found" });
+            
+            result.title = question.title;
+            result.description = question.description;
+            result.type = question.type;
+            result.score = question.score;
+            result.duration = question.duration;
+            result.tag = question.tag;
+            result.domain_id = question.domain_id;
+            result.difficulty = question.difficulty;
+
+            _questRepo.Update(result);
+            return Ok(new { message = "Question updated" });
+           //context.Questions.Update(result);
+           // _context.SaveChanges();
+
+
+        }
+
 
 
     }

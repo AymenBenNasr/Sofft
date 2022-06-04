@@ -20,5 +20,6 @@ namespace DAL.Entities.Questions
         public Guid domain_id { get; set; }
         public Domain? domain { get; set; } 
         public QuestType? type { get; set; }       
+
     }
 }

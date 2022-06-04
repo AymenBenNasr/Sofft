@@ -10,7 +10,7 @@ namespace DAL.Entities.Reponse
     public class Choice : BaseEntity
     {
         public string? choice { get; set; }
-        public Question? questionId { get; set; }
+        public Question? question { get; set; }
         public bool isTrue { get; set; }
        
     }
