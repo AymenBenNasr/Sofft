@@ -8,6 +8,6 @@ namespace DAL.Entities
 {
     internal class Employer : User
     {
-        public string tt;
+
     }
 }
