@@ -7,6 +7,7 @@ using Application.Interfaces;
 using Application.Authorization;
 using DAL.Dtos.Auth;
 using BCrypt.Net;
+using DAL.Entities.Candidat;
 
 namespace Api.Controllers
 {
@@ -14,17 +15,17 @@ namespace Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IUserRepository _userRepo;
+        private CandidatRepository _userRepo;
         private AppDbContext _context;
 
-        public UserController(IUserRepository userRepo , AppDbContext context)
+        public UserController(CandidatRepository userRepo , AppDbContext context)
         {
             _userRepo = userRepo;
             _context = context;
         }
 
         [AllowAnonymous]
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public IActionResult Authenticate(LoginDto model)
         {
             var response = _userRepo.Authenticate(model);
@@ -48,25 +49,42 @@ namespace Api.Controllers
             }
         }
 
-        [Route("")]
+        [Route("Register/Candidat")]
         [HttpPost]
-        public async Task<User> addUser([FromBody] UserDtoRequest user)
+        public async Task<User> addUser([FromBody] CandidatRegisterDto user)
         {
             var _user = new User();
-            _user.Firstname = user.Firstname;
-            _user.Lastname = user.Lastname;
-            _user.Role = user.Role;
-            _user.Email = user.Email;
-            _user.Country = user.Country;
+            _user.Firstname = user.firstname;
+            _user.Lastname = user.lastname;
+            _user.phone_number = user.phone_number;
+            _user.Email = user.email;
+            _user.DateOfBirth = Convert.ToDateTime(user.birthdate);
             _user.passwordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
-            _user.DateOfBirth = Convert.ToDateTime(user.DateOfBirth);
+            _user.resume = user.resume;
+            _user.experiences = user.experiences;
+            _user.Role = Role.Candidat;
+            _userRepo.Add(_user);
+            _context.SaveChanges();
+            return _user;
+        }
+        [Route("Register/Employer")]
+        [HttpPost]
+        public async Task<User> addUser([FromBody] EmployerRegisterDto user)
+        {
+            var _user = new User();
+            _user.Firstname = user.firstname;
+            _user.Lastname = user.lastname;
+            _user.Role = Role.Employer;
+            _user.Email = user.email;
+            _user.passwordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
+            _user.DateOfBirth = Convert.ToDateTime(user.birthdate);
             _userRepo.Add(_user);
             _context.SaveChanges();
             return _user;
         }
 
-        
-        
+
+
 
         [Route("getOne")]
         [HttpGet]

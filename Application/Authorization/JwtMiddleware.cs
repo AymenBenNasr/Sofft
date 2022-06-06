@@ -17,7 +17,7 @@ public class JwtMiddleware
     }
 
 
-    public async Task Invoke(HttpContext context, IUserRepository userService, IJwtUtils jwtUtils)
+    public async Task Invoke(HttpContext context, CandidatRepository userService, IJwtUtils jwtUtils)
     {
         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
         var tokenValid = jwtUtils.ValidateJwtToken(token);
