@@ -8,7 +8,7 @@ namespace DAL.Entities.Candidat
 {
     public class Experience : BaseEntity 
     {
-        public IEnumerable<Technologie> technologies { get; set; }
+        public Technologie tech { get; set; }
         public int duration { get; set;}
         
     }

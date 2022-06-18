@@ -1,15 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "2PrQeoZI5B86l/sZ6yJsUNihAVC5W9W9PJ0tqOtjwMKR6GbJ+Aw1Iv74Jr32FFfBMvLAAniK0v7kl/iQXXOg5g==",
+  "dgSpecHash": "wdS/dBeURGs6zn/JgQ7VVINFiCGoLFe6bSSvVlbQXdfSVvf2iY8aaL0EHOe7yHE9GurTTae85jlhC7ixv93qDg==",
   "success": true,
   "projectFilePath": "C:\\Users\\aymen\\OneDrive\\Desktop\\.net core apps\\PfeProject\\Application\\Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\aymen\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\aymen\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\aymen\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.3\\microsoft.aspnetcore.authentication.jwtbearer.6.0.3.nupkg.sha512",
     "C:\\Users\\aymen\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.3\\microsoft.aspnetcore.cryptography.internal.6.0.3.nupkg.sha512",
     "C:\\Users\\aymen\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.3\\microsoft.aspnetcore.cryptography.keyderivation.6.0.3.nupkg.sha512",
     "C:\\Users\\aymen\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\6.0.3\\microsoft.aspnetcore.identity.entityframeworkcore.6.0.3.nupkg.sha512",
-    "C:\\Users\\aymen\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\aymen\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\aymen\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\aymen\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\aymen\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.3\\microsoft.entityframeworkcore.6.0.3.nupkg.sha512",

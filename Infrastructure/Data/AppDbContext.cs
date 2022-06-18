@@ -2,12 +2,14 @@
 using DAL.Entities.Candidat;
 using DAL.Entities.Questions;
 using DAL.Entities.Reponse;
+using DAL.Entities.Test;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
 
     {
         public AppDbContext()
@@ -35,11 +37,19 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Choice>()
                 .HasOne(q => q.question);
 
+            modelBuilder.Entity<QcmQuestion>()
+                .HasMany<QcmResponse>(q => q.responses);
+            modelBuilder.Entity<QcmResponse>()
+                .HasNoKey();
+
+            modelBuilder.Entity<QcmQuestion>();
 
         }
 
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Candidat> Candidats { get; set; }
+        public virtual DbSet<QcmResponse> QcmResponses { get; set; } 
+        public virtual DbSet<Test> Tests { get; set; }
     }
 }

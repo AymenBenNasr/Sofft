@@ -59,7 +59,7 @@ namespace Api.Controllers
             _user.phone_number = user.phone_number;
             _user.Email = user.email;
             _user.DateOfBirth = Convert.ToDateTime(user.birthdate);
-            _user.passwordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
+            _user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
             _user.resume = user.resume;
             _user.experiences = user.experiences;
             _user.Role = Role.Candidat;
@@ -76,7 +76,7 @@ namespace Api.Controllers
             _user.Lastname = user.lastname;
             _user.Role = Role.Employer;
             _user.Email = user.email;
-            _user.passwordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
+            _user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
             _user.DateOfBirth = Convert.ToDateTime(user.birthdate);
             _userRepo.Add(_user);
             _context.SaveChanges();

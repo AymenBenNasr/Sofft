@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace DAL.Entities
 {
-    internal class Employer : User
+    public class Employer : User
     {
+        public string? CompanyName { get; set; }
+
+        public string? Title { get; set; }
+        public string CompanyWebsite { get; set; }
 
     }
 }

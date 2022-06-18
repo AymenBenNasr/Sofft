@@ -56,6 +56,9 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CandidatId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
 
@@ -76,6 +79,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CandidatId");
 
                     b.HasIndex("ExperienceId");
 
@@ -105,6 +110,23 @@ namespace Infrastructure.Migrations
                     b.ToTable("Domain");
                 });
 
+            modelBuilder.Entity("DAL.Entities.Questions.QcmResponse", b =>
+                {
+                    b.Property<Guid?>("QcmQuestionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("isTrue")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("QcmQuestionId");
+
+                    b.ToTable("QcmResponses");
+                });
+
             modelBuilder.Entity("DAL.Entities.Questions.Question", b =>
                 {
                     b.Property<Guid>("Id")
@@ -113,6 +135,13 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("TestId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("Updated_At")
                         .HasColumnType("datetime2");
@@ -152,11 +181,15 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TestId");
+
                     b.HasIndex("domainId");
 
                     b.HasIndex("typeId");
 
                     b.ToTable("Questions");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Question");
                 });
 
             modelBuilder.Entity("DAL.Entities.Questions.QuestType", b =>
@@ -208,6 +241,29 @@ namespace Infrastructure.Migrations
                     b.HasIndex("questionId");
 
                     b.ToTable("Choice");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Test.Test", b =>
+                {
+                    b.Property<Guid>("TestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("candidatId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("employerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TestId");
+
+                    b.HasIndex("employerId");
+
+                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
@@ -283,15 +339,27 @@ namespace Infrastructure.Migrations
                 {
                     b.HasBaseType("DAL.Entities.User");
 
-                    b.Property<string>("candidat1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("candidat2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("test")
+                        .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Candidat");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Employer", b =>
+                {
+                    b.HasBaseType("DAL.Entities.User");
+
+                    b.HasDiscriminator().HasValue("Employer");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Questions.QcmQuestion", b =>
+                {
+                    b.HasBaseType("DAL.Entities.Questions.Question");
+
+                    b.Property<int>("priority")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("QcmQuestion");
                 });
 
             modelBuilder.Entity("DAL.Entities.Candidat.Experience", b =>
@@ -303,13 +371,28 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DAL.Entities.Candidat.Technologie", b =>
                 {
+                    b.HasOne("DAL.Entities.Candidat.Candidat", null)
+                        .WithMany("technologies")
+                        .HasForeignKey("CandidatId");
+
                     b.HasOne("DAL.Entities.Candidat.Experience", null)
                         .WithMany("technologies")
                         .HasForeignKey("ExperienceId");
                 });
 
+            modelBuilder.Entity("DAL.Entities.Questions.QcmResponse", b =>
+                {
+                    b.HasOne("DAL.Entities.Questions.QcmQuestion", null)
+                        .WithMany()
+                        .HasForeignKey("QcmQuestionId");
+                });
+
             modelBuilder.Entity("DAL.Entities.Questions.Question", b =>
                 {
+                    b.HasOne("DAL.Entities.Test.Test", null)
+                        .WithMany("questions")
+                        .HasForeignKey("TestId");
+
                     b.HasOne("DAL.Entities.Questions.Domain", "domain")
                         .WithMany()
                         .HasForeignKey("domainId");
@@ -332,14 +415,35 @@ namespace Infrastructure.Migrations
                     b.Navigation("question");
                 });
 
+            modelBuilder.Entity("DAL.Entities.Test.Test", b =>
+                {
+                    b.HasOne("DAL.Entities.Employer", "employer")
+                        .WithMany()
+                        .HasForeignKey("employerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("employer");
+                });
+
             modelBuilder.Entity("DAL.Entities.Candidat.Experience", b =>
                 {
                     b.Navigation("technologies");
                 });
 
+            modelBuilder.Entity("DAL.Entities.Test.Test", b =>
+                {
+                    b.Navigation("questions");
+                });
+
             modelBuilder.Entity("DAL.Entities.User", b =>
                 {
                     b.Navigation("experiences");
+                });
+
+            modelBuilder.Entity("DAL.Entities.Candidat.Candidat", b =>
+                {
+                    b.Navigation("technologies");
                 });
 #pragma warning restore 612, 618
         }

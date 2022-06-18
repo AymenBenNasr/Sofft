@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace DAL.Entities.Candidat
 {
-    public class Technologie : BaseEntity
+    public enum Technologie
     {
-        public string?  label { get; set; }
-        public string  field { get; set; }
+        React,
+        Spring,
+        C,
+        java
     }
 }

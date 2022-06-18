@@ -31,7 +31,7 @@ namespace Application.Repositories
             var user = _context.Users.SingleOrDefault(x => x.Email == model.Email);
 
             // validate
-            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.passwordHash))
+            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 throw new AppException("Username or password is incorrect");
 
             // authentication successful so generate jwt token

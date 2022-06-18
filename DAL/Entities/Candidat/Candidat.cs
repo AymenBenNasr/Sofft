@@ -8,10 +8,9 @@ namespace DAL.Entities.Candidat
 {
     public class Candidat : User
     {
-        public IEnumerable<Technologie>? technologies { get; set; }
-        public byte resume { get; set;}
-        public int test { get; set; }
+        public IEnumerable<Experience>? experiences { get; set; }
+        public byte resume { get; set; }
 
-          
+
     }
 }

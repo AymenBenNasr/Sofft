@@ -14,6 +14,8 @@ using System.Text.Json.Serialization;
 using Application.Interfaces.Questions;
 using Application.Repositories.Questions;
 using Microsoft.OpenApi.Models;
+using Application.Interface.TestInterface;
+using Application.Repositories.TestRepo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,9 +50,11 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
 //    };
 //});
-
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<ITestRepository , TestRepository > ();
+
+builder.Services.AddScoped<IQcmQuestionRepository, QcmQuestionRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<CandidatRepository, UserRepository>();
 builder.Services.AddControllers().AddJsonOptions(x =>

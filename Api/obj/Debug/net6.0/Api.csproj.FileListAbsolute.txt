@@ -3,7 +3,6 @@ C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\obj\Debug\net6.0\A
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\obj\Debug\net6.0\Api.AssemblyInfoInputs.cache
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\obj\Debug\net6.0\Api.AssemblyInfo.cs
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\obj\Debug\net6.0\Api.csproj.CoreCompileInputs.cache
-C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\obj\Debug\net6.0\Api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\obj\Debug\net6.0\Api.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Api.staticwebassets.runtime.json
@@ -14,6 +13,7 @@ C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\A
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Api.runtimeconfig.json
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Api.dll
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Api.pdb
+C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\BCrypt.Net-Next.dll
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Humanizer.dll
 C:\Users\aymen\OneDrive\Desktop\.net core apps\PfeProject\Api\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
