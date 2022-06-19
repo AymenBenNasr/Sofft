@@ -11,14 +11,12 @@ namespace DAL.Entities.JobOffer
 {
     public class Postulation
     {
-        public Guid JobOfferId { get; set; }
-        [ForeignKey("Id")]
+        public string JobOfferId { get; set; }
         public JobOffer JobOffer { get; set; }
 
-        public Guid CandidId { get; set; }
-        [ForeignKey("candidatId")]
-
+        public string CandidId { get; set; }
         public Candidat Candidat { get; set; }
+
         public string State { get; set; }
         public byte[] ResumePost { get; set; }
     }

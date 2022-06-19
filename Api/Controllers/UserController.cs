@@ -88,7 +88,7 @@ namespace Api.Controllers
         [Route("getOne")]
         [HttpGet]
         //get by id 
-        public async Task<User> GetUser(Guid id)
+        public async Task<User> GetUser(string id)
         {
             var user = _userRepo.GetAll().FirstOrDefault(x => x.UserId == id);
             
@@ -96,7 +96,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete]
-        public void DeleteUser(Guid id)
+        public void DeleteUser(string id)
         {
             _userRepo.Delete(_userRepo.GetAll().FirstOrDefault(x => x.UserId == id));
             _context.SaveChanges();

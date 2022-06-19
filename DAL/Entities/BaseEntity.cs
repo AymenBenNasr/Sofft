@@ -10,7 +10,7 @@ namespace DAL.Entities
     public abstract class BaseEntity
     {
         [Key]
-        public Guid Id  { get; set; } = Guid.NewGuid();
+        public string Id  { get; set; }
         public int? Status { get; set; } = 1 ;
         public DateTime? Created_At { get; set; } = DateTime.UtcNow;
         public DateTime? Updated_At { get; set; } 

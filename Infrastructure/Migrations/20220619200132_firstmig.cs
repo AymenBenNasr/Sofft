@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class updatedjobOffer : Migration
+    public partial class firstmig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,7 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Firstname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Lastname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -70,7 +70,7 @@ namespace Infrastructure.Migrations
                 name: "Domain",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: true),
                     Created_At = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -85,7 +85,7 @@ namespace Infrastructure.Migrations
                 name: "QuestType",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: true),
                     Created_At = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Updated_At = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -120,7 +120,7 @@ namespace Infrastructure.Migrations
                 name: "Experiences",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     tech = table.Column<int>(type: "int", nullable: false),
                     duration = table.Column<int>(type: "int", nullable: false),
                     CandidatId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -142,7 +142,7 @@ namespace Infrastructure.Migrations
                 name: "JobOffer",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     JobOfferTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Remote = table.Column<bool>(type: "bit", nullable: false),
@@ -150,7 +150,7 @@ namespace Infrastructure.Migrations
                     AvailablePlaces = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     EmployerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmployerId1 = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EmployerId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Technologies = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: true),
                     Created_At = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -163,8 +163,7 @@ namespace Infrastructure.Migrations
                         name: "FK_JobOffer_AspNetUsers_EmployerId1",
                         column: x => x.EmployerId1,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -173,7 +172,7 @@ namespace Infrastructure.Migrations
                 {
                     TestId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    employerId1 = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    employerId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     employerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     candidatId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -184,33 +183,30 @@ namespace Infrastructure.Migrations
                         name: "FK_Tests_AspNetUsers_employerId1",
                         column: x => x.employerId1,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Postulations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    JobOfferId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CandidId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    candidatId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    JobOfferId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CandidId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ResumePost = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Postulations", x => x.Id);
+                    table.PrimaryKey("PK_Postulations", x => new { x.JobOfferId, x.CandidId });
                     table.ForeignKey(
-                        name: "FK_Postulations_AspNetUsers_candidatId",
-                        column: x => x.candidatId,
+                        name: "FK_Postulations_AspNetUsers_CandidId",
+                        column: x => x.CandidId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Postulations_JobOffer_Id",
-                        column: x => x.Id,
+                        name: "FK_Postulations_JobOffer_JobOfferId",
+                        column: x => x.JobOfferId,
                         principalTable: "JobOffer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -220,7 +216,7 @@ namespace Infrastructure.Migrations
                 name: "Questions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     duration = table.Column<int>(type: "int", nullable: true),
@@ -229,8 +225,8 @@ namespace Infrastructure.Migrations
                     tag = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     employer_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     domain_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    domainId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    typeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    domainId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    typeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TestId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     priority = table.Column<int>(type: "int", nullable: true),
@@ -262,9 +258,9 @@ namespace Infrastructure.Migrations
                 name: "Choice",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     choice = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    questionId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    questionId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     isTrue = table.Column<bool>(type: "bit", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: true),
                     Created_At = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -286,7 +282,7 @@ namespace Infrastructure.Migrations
                 {
                     text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     isTrue = table.Column<bool>(type: "bit", nullable: false),
-                    QcmQuestionId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    QcmQuestionId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -337,9 +333,9 @@ namespace Infrastructure.Migrations
                 column: "EmployerId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Postulations_candidatId",
+                name: "IX_Postulations_CandidId",
                 table: "Postulations",
-                column: "candidatId");
+                column: "CandidId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QcmResponses_QcmQuestionId",

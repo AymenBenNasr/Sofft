@@ -75,7 +75,7 @@ namespace Api.Controllers
         }
         
         [HttpDelete]
-        public  void deleteQuestion(Guid id)
+        public  void deleteQuestion(string id)
         {
             _questRepo.Delete(_questRepo.GetAll().FirstOrDefault(x => x.Id == id));
             _context.SaveChanges();
@@ -83,7 +83,7 @@ namespace Api.Controllers
 
         [HttpPost("{id:Guid}")]
 
-        public IActionResult UpdateQuestion(Guid? id , [FromBody] Question question)
+        public IActionResult UpdateQuestion(string? id , [FromBody] Question question)
         {
             var result = _questRepo.GetAll().FirstOrDefault(x => x.Id == id);
             if (result == null)

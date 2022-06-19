@@ -1,7 +1,6 @@
 ﻿using DAL.Entities;
 using DAL.Entities.Candidates;
 using DAL.Entities.Candidates;
-using DAL.Entities.Configurations;
 using DAL.Entities.JobOffer;
 using DAL.Entities.Questions;
 using DAL.Entities.Reponse;
@@ -27,7 +26,7 @@ namespace Infrastructure.Data
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-                var connectionString = configuration.GetConnectionString("DefaultConnection");
+                var connectionString = configuration.GetConnectionString("DefaultConnection2");
                 optionsBuilder.UseSqlServer(connectionString);
                 Console.WriteLine(connectionString);
             }
@@ -56,20 +55,34 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Candidat>()
                 .HasMany<Experience>(c => c.experiences);
 
-       /*     modelBuilder.Entity<Postulation>().HasKey(t => new { t.JobOfferId, t.CandidId });
+            modelBuilder.Entity<Postulation>().HasKey(e => new { e.JobOfferId,e.CandidId});
 
             modelBuilder.Entity<Postulation>()
-                        .HasOne(t => t.Candidat)
-                        .WithMany(t => t.Postulations)
-                        .HasForeignKey(t => t.CandidId);
-
+                .HasOne(sc => sc.Candidat)
+                .WithMany(s => s.Postulations)
+                .HasForeignKey(sc => sc.CandidId);
 
             modelBuilder.Entity<Postulation>()
-                        .HasOne(t => t.JobOffer)
-                        .WithMany(t => t.Postulations)
-                        .HasForeignKey(t => t.JobOfferId);*/
+                .HasOne(sc => sc.JobOffer)
+                .WithMany(s => s.Postulations)
+                .HasForeignKey(sc => sc.JobOfferId);
+            /*
+             * 
+             * modelBuilder.Entity<Postulation>().HasKey(t => new { t.JobOfferId, t.CandidId });
+
+                 modelBuilder.Entity<Postulation>()
+                             .HasOne(t => t.Candidat)
+                             .WithMany(t => t.Postulations)
+                             .HasForeignKey(t => t.CandidId);
+
+
+                 modelBuilder.Entity<Postulation>()
+                             .HasOne(t => t.JobOffer)
+                             .WithMany(t => t.Postulations)
+                             .HasForeignKey(t => t.JobOfferId);*/
 
             //modelBuilder.ApplyConfiguration(new PostulationConfiguration());
+
 
         }
 

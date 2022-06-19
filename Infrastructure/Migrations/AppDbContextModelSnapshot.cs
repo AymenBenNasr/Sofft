@@ -24,9 +24,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DAL.Entities.Candidates.Experience", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CandidatId")
                         .HasColumnType("nvarchar(450)");
@@ -55,9 +54,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DAL.Entities.JobOffer.JobOffer", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AvailablePlaces")
                         .HasColumnType("int");
@@ -73,7 +71,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("EmployerId1")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsActive")
@@ -107,14 +104,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DAL.Entities.JobOffer.Postulation", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("JobOfferId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("CandidId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("JobOfferId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("CandidId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<byte[]>("ResumePost")
                         .IsRequired()
@@ -124,22 +118,17 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("candidatId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.HasKey("JobOfferId", "CandidId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("candidatId");
+                    b.HasIndex("CandidId");
 
                     b.ToTable("Postulations");
                 });
 
             modelBuilder.Entity("DAL.Entities.Questions.Domain", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
@@ -160,8 +149,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DAL.Entities.Questions.QcmResponse", b =>
                 {
-                    b.Property<Guid?>("QcmQuestionId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("QcmQuestionId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("isTrue")
                         .HasColumnType("bit");
@@ -177,9 +166,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DAL.Entities.Questions.Question", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
@@ -203,8 +191,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("difficulty")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("domainId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("domainId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("domain_id")
                         .HasColumnType("uniqueidentifier");
@@ -224,8 +212,8 @@ namespace Infrastructure.Migrations
                     b.Property<string>("title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("typeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("typeId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -242,9 +230,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DAL.Entities.Questions.QuestType", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
@@ -262,9 +249,8 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("DAL.Entities.Reponse.Choice", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
@@ -281,8 +267,8 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("isTrue")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("questionId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("questionId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -304,7 +290,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("employerId1")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("title")
@@ -410,8 +395,8 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("Updated_At")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -528,24 +513,22 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("DAL.Entities.Employer", "Employer")
                         .WithMany()
-                        .HasForeignKey("EmployerId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployerId1");
 
                     b.Navigation("Employer");
                 });
 
             modelBuilder.Entity("DAL.Entities.JobOffer.Postulation", b =>
                 {
-                    b.HasOne("DAL.Entities.JobOffer.JobOffer", "JobOffer")
+                    b.HasOne("DAL.Entities.Candidates.Candidat", "Candidat")
                         .WithMany("Postulations")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("CandidId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Entities.Candidates.Candidat", "Candidat")
+                    b.HasOne("DAL.Entities.JobOffer.JobOffer", "JobOffer")
                         .WithMany("Postulations")
-                        .HasForeignKey("candidatId")
+                        .HasForeignKey("JobOfferId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -593,9 +576,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("DAL.Entities.Employer", "employer")
                         .WithMany()
-                        .HasForeignKey("employerId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("employerId1");
 
                     b.Navigation("employer");
                 });
