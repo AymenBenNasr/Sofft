@@ -8,6 +8,7 @@ using Application.Authorization;
 using DAL.Dtos.Auth;
 using BCrypt.Net;
 using DAL.Entities.Candidates;
+using Api.Identity;
 
 namespace Api.Controllers
 {
@@ -18,11 +19,14 @@ namespace Api.Controllers
         private CandidatRepository _userRepo;
         private AppDbContext _context;
 
-        public UserController(CandidatRepository userRepo , AppDbContext context)
+        private IAuthenticationService _authenticationService;
+
+        public UserController(CandidatRepository userRepo , AppDbContext context, IAuthenticationService authenticationService)
         {
             _userRepo = userRepo;
             _context = context;
-        }
+            _authenticationService = authenticationService;
+    }
 
         [AllowAnonymous]
         [HttpPost("login")]
@@ -100,6 +104,15 @@ namespace Api.Controllers
         {
             _userRepo.Delete(_userRepo.GetAll().FirstOrDefault(x => x.UserId == id));
             _context.SaveChanges();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterUser([FromBody] userRegistration userRegistration)
+        {
+
+            var userResult = await _authenticationService.RegisterUserAsync(userRegistration);
+            return !userResult.Succeeded ? new BadRequestObjectResult(userResult) : StatusCode(201);
         }
     }
 }

@@ -16,6 +16,10 @@ using Application.Repositories.Questions;
 using Microsoft.OpenApi.Models;
 using Application.Interface.TestInterface;
 using Application.Repositories.TestRepo;
+using DAL.Entities;
+using Api.Config;
+using Microsoft.Extensions.Options;
+using Api.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,32 +28,46 @@ builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 
 
 // For Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddIdentity<User, IdentityRole>(identity =>
+{
+    //identity.User.RequireUniqueEmail = true;
+})
+.AddEntityFrameworkStores<AppDbContext>()
+.AddRoleManager<RoleManager<IdentityRole>>()
+.AddSignInManager<SignInManager<User>>()
+.AddUserManager<UserManager<User>>()
+.AddDefaultTokenProviders();
+
+
+var serviceProvider = builder.Services.BuildServiceProvider();
+
+
+var jwtAthenticationOptions = serviceProvider.GetService<IOptions<JwtAthenticationOptions>>();
+
+JwtAthenticationOptions JwtAthentication = jwtAthenticationOptions.Value;
 
 // Adding Authentication
-//builder.Services.AddAuthentication(options =>
-//{
-//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-//})
-
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Adding Jwt Bearer
-//.AddJwtBearer(options =>
-//{
-//    options.SaveToken = true;
-//    options.RequireHttpsMetadata = false;
-//    options.TokenValidationParameters = new TokenValidationParameters()
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = true,
-//        ValidAudience = configuration["JWT:ValidAudience"],
-//        ValidIssuer = configuration["JWT:ValidIssuer"],
-//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
-//    };
-//});
+.AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidAudience = JwtAthentication.ValidAudience,
+        ValidIssuer = JwtAthentication.ValidIssuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtAthentication.jwtKey))
+    };
+});
+//Services
+
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ITestRepository , TestRepository > ();
@@ -57,6 +75,10 @@ builder.Services.AddScoped<ITestRepository , TestRepository > ();
 builder.Services.AddScoped<IQcmQuestionRepository, QcmQuestionRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<CandidatRepository, UserRepository>();
+
+
+
+
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
     // serialize enums as strings in api responses (e.g. Role)
@@ -88,6 +110,8 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+ConfigurationManager configuration = builder.Configuration; // allows both to access and to set up the config
+builder.Services.Configure<JwtAthenticationOptions>(settings => configuration.Bind("JwtAthentication", settings));
 
 var app = builder.Build();
 app.UseSwagger();   
@@ -96,7 +120,7 @@ app.UseSwaggerUI();
 // Configure the HTTP request pipeline.
 app.UseCors("corsapp");
 app.UseHttpsRedirection();
-app.UseMiddleware<JwtMiddleware>();
+//app.UseMiddleware<JwtMiddleware>();
 
 app.UseAuthorization();
 
