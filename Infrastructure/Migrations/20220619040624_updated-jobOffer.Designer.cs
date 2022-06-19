@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220617002626_QcmQuestionTest")]
-    partial class QcmQuestionTest
+    [Migration("20220619040624_updated-jobOffer")]
+    partial class updatedjobOffer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,69 +24,117 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("DAL.Entities.Candidat.Experience", b =>
+            modelBuilder.Entity("DAL.Entities.Candidates.Experience", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CandidatId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("Updated_At")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("duration")
                         .HasColumnType("int");
 
-                    b.Property<int?>("status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Experience");
-                });
-
-            modelBuilder.Entity("DAL.Entities.Candidat.Technologie", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CandidatId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("Created_At")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("ExperienceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("Updated_At")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("field")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("label")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("status")
+                    b.Property<int>("tech")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CandidatId");
 
-                    b.HasIndex("ExperienceId");
+                    b.ToTable("Experiences");
+                });
 
-                    b.ToTable("Technologie");
+            modelBuilder.Entity("DAL.Entities.JobOffer.JobOffer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AvailablePlaces")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("EmployerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EmployerId1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JobOfferTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Remote")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("Salary")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Technologies")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Updated_At")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployerId1");
+
+                    b.ToTable("JobOffer");
+                });
+
+            modelBuilder.Entity("DAL.Entities.JobOffer.Postulation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CandidId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("JobOfferId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("ResumePost")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("candidatId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("candidatId");
+
+                    b.ToTable("Postulations");
                 });
 
             modelBuilder.Entity("DAL.Entities.Questions.Domain", b =>
@@ -98,11 +146,11 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("Updated_At")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("status")
-                        .HasColumnType("int");
 
                     b.Property<string>("title")
                         .HasColumnType("nvarchar(max)");
@@ -142,6 +190,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
                     b.Property<Guid?>("TestId")
                         .HasColumnType("uniqueidentifier");
 
@@ -168,9 +219,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<float?>("score")
                         .HasColumnType("real");
-
-                    b.Property<int?>("status")
-                        .HasColumnType("int");
 
                     b.Property<string>("tag")
                         .HasColumnType("nvarchar(max)");
@@ -203,11 +251,11 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("Updated_At")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("status")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -223,6 +271,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("Updated_At")
                         .HasColumnType("datetime2");
 
@@ -234,9 +285,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<Guid?>("questionId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("status")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -257,22 +305,32 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("employerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("employerId1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TestId");
 
-                    b.HasIndex("employerId");
+                    b.HasIndex("employerId1");
 
                     b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("DAL.Entities.User", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
@@ -288,61 +346,149 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Firstname")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Lastname")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHashed")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Phone_number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("Profile_image")
+                        .HasColumnType("tinyint");
+
+                    b.Property<byte[]>("ResumeUser")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime?>("Updated_At")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("active")
-                        .HasColumnType("bit");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("companyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("companyWebsite")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("passwordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("phone_number")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte>("profile_image")
-                        .HasColumnType("tinyint");
-
-                    b.Property<byte?>("resume")
-                        .HasColumnType("tinyint");
-
-                    b.Property<int?>("status")
-                        .HasColumnType("int");
-
-                    b.Property<string>("title")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
-            modelBuilder.Entity("DAL.Entities.Candidat.Candidat", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("DAL.Entities.Candidates.Candidat", b =>
                 {
                     b.HasBaseType("DAL.Entities.User");
-
-                    b.Property<int>("test")
-                        .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Candidat");
                 });
@@ -350,6 +496,15 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("DAL.Entities.Employer", b =>
                 {
                     b.HasBaseType("DAL.Entities.User");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyWebsite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Employer");
                 });
@@ -364,22 +519,41 @@ namespace Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("QcmQuestion");
                 });
 
-            modelBuilder.Entity("DAL.Entities.Candidat.Experience", b =>
+            modelBuilder.Entity("DAL.Entities.Candidates.Experience", b =>
                 {
-                    b.HasOne("DAL.Entities.User", null)
+                    b.HasOne("DAL.Entities.Candidates.Candidat", null)
                         .WithMany("experiences")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CandidatId");
                 });
 
-            modelBuilder.Entity("DAL.Entities.Candidat.Technologie", b =>
+            modelBuilder.Entity("DAL.Entities.JobOffer.JobOffer", b =>
                 {
-                    b.HasOne("DAL.Entities.Candidat.Candidat", null)
-                        .WithMany("technologies")
-                        .HasForeignKey("CandidatId");
+                    b.HasOne("DAL.Entities.Employer", "Employer")
+                        .WithMany()
+                        .HasForeignKey("EmployerId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("DAL.Entities.Candidat.Experience", null)
-                        .WithMany("technologies")
-                        .HasForeignKey("ExperienceId");
+                    b.Navigation("Employer");
+                });
+
+            modelBuilder.Entity("DAL.Entities.JobOffer.Postulation", b =>
+                {
+                    b.HasOne("DAL.Entities.JobOffer.JobOffer", "JobOffer")
+                        .WithMany("Postulations")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Entities.Candidates.Candidat", "Candidat")
+                        .WithMany("Postulations")
+                        .HasForeignKey("candidatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Candidat");
+
+                    b.Navigation("JobOffer");
                 });
 
             modelBuilder.Entity("DAL.Entities.Questions.QcmResponse", b =>
@@ -421,16 +595,25 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("DAL.Entities.Employer", "employer")
                         .WithMany()
-                        .HasForeignKey("employerId")
+                        .HasForeignKey("employerId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("employer");
                 });
 
-            modelBuilder.Entity("DAL.Entities.Candidat.Experience", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.Navigation("technologies");
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DAL.Entities.JobOffer.JobOffer", b =>
+                {
+                    b.Navigation("Postulations");
                 });
 
             modelBuilder.Entity("DAL.Entities.Test.Test", b =>
@@ -438,14 +621,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("questions");
                 });
 
-            modelBuilder.Entity("DAL.Entities.User", b =>
+            modelBuilder.Entity("DAL.Entities.Candidates.Candidat", b =>
                 {
-                    b.Navigation("experiences");
-                });
+                    b.Navigation("Postulations");
 
-            modelBuilder.Entity("DAL.Entities.Candidat.Candidat", b =>
-                {
-                    b.Navigation("technologies");
+                    b.Navigation("experiences");
                 });
 #pragma warning restore 612, 618
         }

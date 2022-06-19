@@ -1,4 +1,4 @@
-﻿using DAL.Entities.Candidat;
+﻿using DAL.Entities.Candidates;
 using Infrastructure.Data;
 using System;
 using System.Collections.Generic;

@@ -7,7 +7,7 @@ using Application.Interfaces;
 using Application.Authorization;
 using DAL.Dtos.Auth;
 using BCrypt.Net;
-using DAL.Entities.Candidat;
+using DAL.Entities.Candidates;
 
 namespace Api.Controllers
 {
@@ -56,12 +56,11 @@ namespace Api.Controllers
             var _user = new User();
             _user.Firstname = user.firstname;
             _user.Lastname = user.lastname;
-            _user.phone_number = user.phone_number;
+            _user.PhoneNumber = user.phone_number;
             _user.Email = user.email;
             _user.DateOfBirth = Convert.ToDateTime(user.birthdate);
             _user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
-            _user.resume = user.resume;
-            _user.experiences = user.experiences;
+            _user.ResumeUser = user.resume;
             _user.Role = Role.Candidat;
             _userRepo.Add(_user);
             _context.SaveChanges();
@@ -91,7 +90,7 @@ namespace Api.Controllers
         //get by id 
         public async Task<User> GetUser(Guid id)
         {
-            var user = _userRepo.GetAll().FirstOrDefault(x => x.Id == id);
+            var user = _userRepo.GetAll().FirstOrDefault(x => x.UserId == id);
             
             return user;
         }
@@ -99,7 +98,7 @@ namespace Api.Controllers
         [HttpDelete]
         public void DeleteUser(Guid id)
         {
-            _userRepo.Delete(_userRepo.GetAll().FirstOrDefault(x => x.Id == id));
+            _userRepo.Delete(_userRepo.GetAll().FirstOrDefault(x => x.UserId == id));
             _context.SaveChanges();
         }
     }

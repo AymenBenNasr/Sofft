@@ -1,4 +1,4 @@
-﻿using DAL.Entities.Candidat;
+﻿using DAL.Entities.Candidates;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -24,6 +24,8 @@ namespace DAL.Entities
         public string? Phone_number { get; set; }
         public string? Country { get; set; }    
         public byte Profile_image { get; set; }
+        public byte[] ResumeUser { get; set; }
+        public Role Role { get; set; }
         [JsonIgnore]
         public string? PasswordHashed { get; set; }
         public int? Status { get; set; } = 1;

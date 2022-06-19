@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL.Entities.Candidates;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,17 +10,17 @@ namespace DAL.Entities.JobOffer
 {
     public class JobOffer : BaseEntity
     {
-        [Key]
-        public Guid jobOfferId { get; set; }
-        [Required]
-        public string jobOfferTitle { get; set; }
-        public string description { get; set; }
-        public bool remote { get; set; }
-        public double salary { get; set; }
-        public int availablePlaces { get; set; }
-        public bool isActive { get; set; }
-        [Required]
-        public Employer createdBy { get; set; }
+        public string JobOfferTitle { get; set; }
+        public string Description { get; set; }
+        public bool Remote { get; set; }
+        public double Salary { get; set; }
+        public int AvailablePlaces { get; set; }
+        public bool IsActive { get; set; }
+        public Guid EmployerId { get; set; }
+        public virtual Employer Employer { get; set; }
+        public Technologie Technologies { get; set; }
+        public ICollection<Postulation> Postulations { get; set; }
+
 
     }
 

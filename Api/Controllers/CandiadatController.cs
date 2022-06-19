@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.Authorization;
 using DAL.Entities;
 using DAL.Dtos.Auth;
-using DAL.Entities.Candidat;
+using DAL.Entities.Candidates;
 
 namespace Api.Controllers
 {
@@ -43,11 +43,11 @@ namespace Api.Controllers
             var _user = new Candidat();
             _user.Firstname = user.firstname;
             _user.Lastname = user.lastname;
-            _user.phone_number = user.phone_number;
+            _user.PhoneNumber = user.phone_number;
             _user.Email = user.email;
             _user.DateOfBirth = Convert.ToDateTime(user.birthdate);
             _user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
-            _user.resume = user.resume;
+            _user.ResumeUser = user.resume;
             _user.experiences = user.experiences;
             _user.Role = Role.Candidat;
             _userRepo.Add(_user);

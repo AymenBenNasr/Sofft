@@ -18,11 +18,10 @@ namespace DAL.Dtos.Auth
 
         public AuthResponse(User user, string token)
         {
-            Id = user.Id;
+            Id = user.UserId;
             FirstName = user.Firstname;
             LastName = user.Lastname;
             Email = user.Email;
-            Role = user.Role;
             Token = token;
         }
     }

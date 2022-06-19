@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Entities.Candidat
+namespace DAL.Entities.Candidates
 {
     public enum Technologie
     {

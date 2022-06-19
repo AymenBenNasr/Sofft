@@ -11,7 +11,7 @@ namespace DAL.Entities
         public string? CompanyName { get; set; }
 
         public string? Title { get; set; }
-        public string CompanyWebsite { get; set; }
+        public string? CompanyWebsite { get; set; }
 
     }
 }
