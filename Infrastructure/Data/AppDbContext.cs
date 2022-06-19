@@ -26,7 +26,7 @@ namespace Infrastructure.Data
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-                var connectionString = configuration.GetConnectionString("DefaultConnection2");
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
                 optionsBuilder.UseSqlServer(connectionString);
                 Console.WriteLine(connectionString);
             }
