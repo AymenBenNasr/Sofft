@@ -26,6 +26,7 @@ namespace DAL.Entities
         public byte Profile_image { get; set; }
         public byte[] ResumeUser { get; set; }
         public Role Role { get; set; }
+
         [JsonIgnore]
         public string? PasswordHashed { get; set; }
         public int? Status { get; set; } = 1;
