@@ -20,6 +20,8 @@ using DAL.Entities;
 using Api.Config;
 using Microsoft.Extensions.Options;
 using Api.Identity;
+using Application.Interfaces.JobOfferInterface;
+using Application.Repositories.JobOffers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -71,13 +73,14 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ITestRepository , TestRepository > ();
-
+builder.Services.AddScoped<IJobOffer, JobOfferRepository>();
 builder.Services.AddScoped<IQcmQuestionRepository, QcmQuestionRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<CandidatRepository, UserRepository>();
 
 
 
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers().AddJsonOptions(x =>
 {
@@ -121,6 +124,7 @@ app.UseSwaggerUI();
 app.UseCors("corsapp");
 app.UseHttpsRedirection();
 //app.UseMiddleware<JwtMiddleware>();
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseAuthorization();
 

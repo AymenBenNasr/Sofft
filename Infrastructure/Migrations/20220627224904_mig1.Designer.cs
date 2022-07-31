@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220619200132_firstmig")]
-    partial class firstmig
+    [Migration("20220627224904_mig1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("DAL.Entities.Candidates.Experience", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CandidatId")
@@ -57,41 +58,40 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("DAL.Entities.JobOffer.JobOffer", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AvailablePlaces")
+                    b.Property<int?>("AvailablePlaces")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Created_At")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("EmployerId")
+                    b.Property<Guid?>("EmployerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("EmployerId1")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("JobOfferTitle")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Remote")
+                    b.Property<bool?>("Remote")
                         .HasColumnType("bit");
 
-                    b.Property<double>("Salary")
+                    b.Property<double?>("Salary")
                         .HasColumnType("float");
 
                     b.Property<int?>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("Technologies")
+                    b.Property<int?>("Technologies")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("Updated_At")
@@ -130,6 +130,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("DAL.Entities.Questions.Domain", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("Created_At")
@@ -169,6 +170,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("DAL.Entities.Questions.Question", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("Created_At")
@@ -233,6 +235,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("DAL.Entities.Questions.QuestType", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("Created_At")
@@ -252,6 +255,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("DAL.Entities.Reponse.Choice", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("Created_At")
@@ -379,7 +383,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<byte[]>("ResumeUser")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<int>("Role")

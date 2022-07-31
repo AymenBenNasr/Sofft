@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class firstmig : Migration
+    public partial class mig1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -37,7 +37,7 @@ namespace Infrastructure.Migrations
                     Phone_number = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Profile_image = table.Column<byte>(type: "tinyint", nullable: false),
-                    ResumeUser = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ResumeUser = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Role = table.Column<int>(type: "int", nullable: false),
                     PasswordHashed = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: true),
@@ -143,15 +143,15 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    JobOfferTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Remote = table.Column<bool>(type: "bit", nullable: false),
-                    Salary = table.Column<double>(type: "float", nullable: false),
-                    AvailablePlaces = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    EmployerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    JobOfferTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Remote = table.Column<bool>(type: "bit", nullable: true),
+                    Salary = table.Column<double>(type: "float", nullable: true),
+                    AvailablePlaces = table.Column<int>(type: "int", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    EmployerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     EmployerId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Technologies = table.Column<int>(type: "int", nullable: false),
+                    Technologies = table.Column<int>(type: "int", nullable: true),
                     Status = table.Column<int>(type: "int", nullable: true),
                     Created_At = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Updated_At = table.Column<DateTime>(type: "datetime2", nullable: true)

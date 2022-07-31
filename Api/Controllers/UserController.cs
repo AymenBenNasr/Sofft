@@ -9,6 +9,8 @@ using DAL.Dtos.Auth;
 using BCrypt.Net;
 using DAL.Entities.Candidates;
 using Api.Identity;
+using Microsoft.AspNetCore.Mvc.Filters;
+
 
 namespace Api.Controllers
 {
@@ -21,12 +23,12 @@ namespace Api.Controllers
 
         private IAuthenticationService _authenticationService;
 
-        public UserController(CandidatRepository userRepo , AppDbContext context, IAuthenticationService authenticationService)
+        public UserController(CandidatRepository userRepo, AppDbContext context, IAuthenticationService authenticationService)
         {
             _userRepo = userRepo;
             _context = context;
             _authenticationService = authenticationService;
-    }
+        }
 
         [AllowAnonymous]
         [HttpPost("login")]
@@ -35,21 +37,29 @@ namespace Api.Controllers
             var response = _userRepo.Authenticate(model);
             return Ok(response);
         }
-
+        //Get current use
+        /*[Route("/current")]
+        public async Task<IEnumerable<User>> getCurrent()
+        {
+            AuthorizationFilterContext context;
+            var user = (User)context.HttpContext.Items["User"];
+            return Ok(user);
+        }*/
         //Get All
         [Route("")]
         [HttpGet]
-        [Authorize(Role.Admin)]
+        [Authorize(Role.Employer)]
         public async Task<IEnumerable<User>> getAll()
         {
             try
             {
-                return  _userRepo.GetAll().ToList();
+                return _userRepo.GetAll().ToList();
 
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                return new List<User>();    
+                return new List<User>();
             }
         }
 
@@ -64,7 +74,6 @@ namespace Api.Controllers
             _user.Email = user.email;
             _user.DateOfBirth = Convert.ToDateTime(user.birthdate);
             _user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
-            _user.ResumeUser = user.resume;
             _user.Role = Role.Candidat;
             _userRepo.Add(_user);
             _context.SaveChanges();
@@ -95,7 +104,7 @@ namespace Api.Controllers
         public async Task<User> GetUser(string id)
         {
             var user = _userRepo.GetAll().FirstOrDefault(x => x.UserId == id);
-            
+
             return user;
         }
 

@@ -47,7 +47,6 @@ namespace Api.Controllers
             _user.Email = user.email;
             _user.DateOfBirth = Convert.ToDateTime(user.birthdate);
             _user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.password);
-            _user.ResumeUser = user.resume;
             _user.experiences = user.experiences;
             _user.Role = Role.Candidat;
             _userRepo.Add(_user);

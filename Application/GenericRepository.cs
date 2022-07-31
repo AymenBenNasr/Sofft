@@ -36,7 +36,7 @@ namespace Application
             return _context.Set<T>().ToList();
         }
 
-        public T GetById(Guid id)
+        public T GetById(string id)
         {
             return _context.Set<T>().Find(id);
         }

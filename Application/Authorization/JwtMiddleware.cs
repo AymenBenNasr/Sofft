@@ -24,7 +24,7 @@ public class JwtMiddleware
 
         try
         { 
-        var userId = Guid.Parse(jwtUtils.ValidateJwtToken(token));
+        var userId = jwtUtils.ValidateJwtToken(token);
 
         if (userId != null)
         {

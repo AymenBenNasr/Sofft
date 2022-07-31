@@ -24,7 +24,7 @@ namespace DAL.Entities
         public string? Phone_number { get; set; }
         public string? Country { get; set; }    
         public byte Profile_image { get; set; }
-        public byte[] ResumeUser { get; set; }
+        public byte[]? ResumeUser { get; set; }
         public Role Role { get; set; }
 
         [JsonIgnore]

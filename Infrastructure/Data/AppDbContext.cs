@@ -1,6 +1,5 @@
 ﻿using DAL.Entities;
 using DAL.Entities.Candidates;
-using DAL.Entities.Candidates;
 using DAL.Entities.JobOffer;
 using DAL.Entities.Questions;
 using DAL.Entities.Reponse;
@@ -26,7 +25,7 @@ namespace Infrastructure.Data
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-                var connectionString = configuration.GetConnectionString("DefaultConnection2");
+                var connectionString = configuration.GetConnectionString("DefaultConnection");
                 optionsBuilder.UseSqlServer(connectionString);
                 Console.WriteLine(connectionString);
             }
@@ -82,6 +81,9 @@ namespace Infrastructure.Data
                              .HasForeignKey(t => t.JobOfferId);*/
 
             //modelBuilder.ApplyConfiguration(new PostulationConfiguration());
+            //joboffer 
+            modelBuilder.Entity<JobOffer>()
+                .HasOne(Jo => Jo.Employer);
 
 
         }
